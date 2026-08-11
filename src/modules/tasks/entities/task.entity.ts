@@ -27,7 +27,7 @@ export class TaskEntity {
   @Column({ type: 'text', nullable: true })
   description!: string | null;
 
-  @Column({ type: 'enum', enum: TaskStatus, default: TaskStatus.PENDING })
+  @Column({ type: 'simple-enum', enum: TaskStatus, default: TaskStatus.PENDING })
   status!: TaskStatus;
 
   @CreateDateColumn({ name: 'created_at' })
