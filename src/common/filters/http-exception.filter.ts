@@ -29,13 +29,11 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const request = ctx.getRequest<Request>();
 
     const isHttpException = exception instanceof HttpException;
-    const statusCode = isHttpException
+    const statusCode: number = isHttpException
       ? exception.getStatus()
       : HttpStatus.INTERNAL_SERVER_ERROR;
 
-    const message = isHttpException
-      ? this.extractMessage(exception)
-      : 'Internal server error';
+    const message = isHttpException ? this.extractMessage(exception) : 'Internal server error';
 
     const body: ErrorResponseBody = {
       statusCode,
@@ -44,6 +42,11 @@ export class HttpExceptionFilter implements ExceptionFilter {
       message,
     };
 
+    // HttpStatus is a numeric enum; comparing a resolved status code against
+    // its INTERNAL_SERVER_ERROR member is intentional and safe. (Casting the
+    // enum member to `number` here would trigger `no-unnecessary-type-assertion`
+    // instead, since TS treats it as already numeric in this comparison context.)
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     if (statusCode >= HttpStatus.INTERNAL_SERVER_ERROR) {
       this.logger.error(
         `${request.method} ${request.url} -> ${statusCode}`,

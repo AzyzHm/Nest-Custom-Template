@@ -100,9 +100,7 @@ describe('TasksService (unit)', () => {
     it('throws ResourceNotFoundException when the task does not exist', async () => {
       repository.findById.mockResolvedValue(null);
 
-      await expect(service.findOne('missing-id')).rejects.toBeInstanceOf(
-        ResourceNotFoundException,
-      );
+      await expect(service.findOne('missing-id')).rejects.toBeInstanceOf(ResourceNotFoundException);
     });
   });
 
@@ -142,9 +140,7 @@ describe('TasksService (unit)', () => {
     it('throws ResourceNotFoundException when removing a missing task', async () => {
       repository.findById.mockResolvedValue(null);
 
-      await expect(service.remove('missing-id')).rejects.toBeInstanceOf(
-        ResourceNotFoundException,
-      );
+      await expect(service.remove('missing-id')).rejects.toBeInstanceOf(ResourceNotFoundException);
     });
   });
 });
