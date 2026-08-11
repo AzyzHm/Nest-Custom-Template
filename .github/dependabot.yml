@@ -1,0 +1,39 @@
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    open-pull-requests-limit: 10
+    groups:
+      nestjs:
+        patterns:
+          - '@nestjs/*'
+      typeorm:
+        patterns:
+          - 'typeorm'
+          - '@nestjs/typeorm'
+          - 'pg'
+          - 'better-sqlite3'
+      eslint:
+        patterns:
+          - 'eslint*'
+          - 'typescript-eslint'
+          - '@eslint/*'
+      testing:
+        patterns:
+          - 'jest'
+          - 'ts-jest'
+          - '@types/jest'
+          - 'supertest'
+          - '@types/supertest'
+    ignore:
+      - dependency-name: '@nestjs/*'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'typeorm'
+        update-types: ['version-update:semver-major']
+
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
