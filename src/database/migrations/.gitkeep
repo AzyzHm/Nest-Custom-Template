@@ -1,0 +1,7 @@
+This folder holds TypeORM migration files, generated with:
+
+    npm run migration:generate -- src/database/migrations/<MigrationName>
+
+and applied with:
+
+    npm run migration:run
